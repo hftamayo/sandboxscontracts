@@ -1,62 +1,49 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.8.7;
 
 contract UserBalance {
     uint8 private clientCount;
-    mapping (address => uint) currentBalance;
+    mapping (address => uint) private balances;
     address public owner;
 
-    struct User {
-        string name;
-        uint256 age;
+    struct ContractOwnerStruct {
+        string ownerName;
+        uint256 ownerAge;
     }
 
-    User public new_current_user = current_user;
+    mapping(address => ContractOwnerStruct) private contractOwnerStructs;
+    address[] private userIndex;
 
-    constructor(){
-        current_user.setUserDetails("Herbert Tamayo", 43);
+    // Constructor is "payable" so it can receive the initial funding of 30, 
+    // required to reward the first 3 clients
+    constructor() public payable{
+        require(msg.value == 30 ether, "30 ether initial funding required");        
+        owner = msg.sender;
+        clientCount = 0;
     }
 
-    modifier checkingBalance(){
-        require(currentBalance[msg.sender]>0, "Not enough available funds for the requested operation");
-    }
-
+    //Structs assignment:
     //set user's info into the struct
-    function setUserDetails(string memory _name, uint256 _age) public {
-        current_user.name = _name;
-        current_user.name = _age;
+    function setUserDetails(address userAddress, string memory _name, uint256 _age) public {
+        contractOwnerStructs[userAddress].ownerName = _name;
+        contractOwnerStructs[userAddress].ownerAge = _age;
     }
 
     //send user's info from the struct
-    function getUserDetails() public views return (User memory){
-        return current_user;
+    function getUserDetails(address userAddress) public view returns (string memory, uint256){
+        return(
+            contractOwnerStructs[userAddress].ownerName,contractOwnerStructs[userAddress].ownerAge
+        );
     }
+
+    //modifiers assignment
 
     /// @notice Deposit ether into bank, requires method is "payable"
     /// @return The balance of the user after the deposit is made
-    function deposit(uint256 amount) public payable returns (uint256) {
-        currentBalance[msg.sender] += amount;
-        return currentBalance[msg.sender];
-    }
-
-    function withdraw(){
-        address payable to = payable(msg.sender);
-        to.transfer(checkBalance[msg.sender]);
-        checkBalance(msg.sender) = 0;
-    }
-
-    function addFund(uint256 _amount){
-        depositsBalance[msg.sender] += _amount;
+    function deposit(uint256 amount) public payable {
+        balanceReceived += msg.value;
+        donor = msg.sender;
     }
 
 
-    /// @notice Just reads balance of the account requesting, so "constant"
-    /// @return The balance of the user
-    function checkBalance() public view returns (uint) {
-        return currentBalance[msg.sender];
-    }
 
-    /// @return The balance of the Simple Bank contract
-    function depositsBalance() public view returns (uint) {
-        return address(this).balance;
-    }
 }
