@@ -5,30 +5,24 @@ contract UserBalance {
     mapping (address => uint) private balances;
     address public owner;
 
-    struct User {
-        string name;
-        uint256 age;
+    struct UserStruct {
+        string userName;
+        uint256 userAage;
     }
 
-    User public new_current_user = current_user;
-
-    constructor(){
-        current_user.setUserDetails("Herbert Tamayo", 43);
-    }
-
-    //set user's info into the struct
-    function setUserDetails(string memory _name, uint256 _age) public {
-        current_user.name = _name;
-        current_user.name = _age;
-    }
-
-    //send user's info from the struct
-    function getUserDetails() public views return (User memory){
-        return current_user;
-    }
+    mapping(address => UserStruct) private userStructs;
+    address[] private userIndex;
 
   // Log the event about a deposit being made by an address and its amount
-    event LogDepositMade(address indexed accountAddress, uint amount);
+    event LogDepositMade(address indexed userAddress, uint index, uint amount, string userName);
+
+    // Constructor is "payable" so it can receive the initial funding of 30, 
+    // required to reward the first 3 clients
+    constructor() public payable{
+        require(msg.value == 30 ether, "30 ether initial funding required");        
+        owner = msg.sender;
+        clientCount = 0;
+    }
 
     /// @notice Deposit ether into bank, requires method is "payable"
     /// @return The balance of the user after the deposit is made
@@ -37,7 +31,6 @@ contract UserBalance {
         emit LogDepositMade(msg.sender, amount);
         return balances[msg.sender];
     }
-
 
     /// @notice Just reads balance of the account requesting, so "constant"
     /// @return The balance of the user
@@ -49,4 +42,19 @@ contract UserBalance {
     function depositsBalance() public view returns (uint) {
         return address(this).balance;
     }
+
+    //Structs assignment:
+    //set user's info into the struct
+    function setUserDetails(string memory _name, uint256 _age) public {
+        userStructs[userAddress].name = _name;
+        userStructs[userAddress].age = _age;
+    }
+
+    //send user's info from the struct
+    function getUserDetails(address userAddress) public view returns (string memory, uint256){
+        return(
+            userStructs[userAddress].userName,UserStruct[userAddress].userAge
+        );
+    }
+
 }
