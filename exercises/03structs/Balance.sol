@@ -1,4 +1,4 @@
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.7;
 
 contract UserBalance {
     uint8 private clientCount;
@@ -7,14 +7,11 @@ contract UserBalance {
 
     struct UserStruct {
         string userName;
-        uint256 userAage;
+        uint256 userAge;
     }
 
     mapping(address => UserStruct) private userStructs;
     address[] private userIndex;
-
-  // Log the event about a deposit being made by an address and its amount
-    event LogDepositMade(address indexed userAddress, uint index, uint amount, string userName);
 
     // Constructor is "payable" so it can receive the initial funding of 30, 
     // required to reward the first 3 clients
@@ -28,7 +25,6 @@ contract UserBalance {
     /// @return The balance of the user after the deposit is made
     function deposit(uint256 amount) public payable returns (uint256) {
         balances[msg.sender] += amount;
-        emit LogDepositMade(msg.sender, amount);
         return balances[msg.sender];
     }
 
@@ -45,15 +41,15 @@ contract UserBalance {
 
     //Structs assignment:
     //set user's info into the struct
-    function setUserDetails(string memory _name, uint256 _age) public {
-        userStructs[userAddress].name = _name;
-        userStructs[userAddress].age = _age;
+    function setUserDetails(address userAddress, string memory _name, uint256 _age) public {
+        userStructs[userAddress].userName = _name;
+        userStructs[userAddress].userAge = _age;
     }
 
     //send user's info from the struct
     function getUserDetails(address userAddress) public view returns (string memory, uint256){
         return(
-            userStructs[userAddress].userName,UserStruct[userAddress].userAge
+            userStructs[userAddress].userName,userStructs[userAddress].userAge
         );
     }
 
