@@ -1,49 +1,84 @@
 pragma solidity ^0.8.7;
 
 contract UserBalance {
-    uint8 private clientCount;
     mapping (address => uint) private balances;
     address public owner;
 
-    struct ContractOwnerStruct {
-        string ownerName;
-        uint256 ownerAge;
+    struct UserStruct {
+        bytes32 userName;
+        uint256 userAge;
     }
 
-    mapping(address => ContractOwnerStruct) private contractOwnerStructs;
+    struct DonorStruct {
+        bytes32 donorName;
+        uint256 donorAmount;
+    }
+
+    mapping(address => UserStruct) private userStructs;
     address[] private userIndex;
 
-    // Constructor is "payable" so it can receive the initial funding of 30, 
-    // required to reward the first 3 clients
-    constructor() public payable{
-        require(msg.value == 30 ether, "30 ether initial funding required");        
+    mapping(address => DonorStruct) private donorStructs;
+    address[] private donorIndex;
+
+    constructor() {
         owner = msg.sender;
-        clientCount = 0;
+    }
+
+    /// @notice Deposit ether into bank, requires method is "payable"
+    /// @return The balance of the user after the deposit is made
+    function deposit(uint256 amount) public payable returns (uint256) {
+        balances[msg.sender] += amount;
+        return balances[msg.sender];
+    }
+
+    /// @notice Just reads balance of the account requesting, so "constant"
+    /// @return The balance of the user
+    function checkBalance() public view returns (uint) {
+        return balances[msg.sender];
     }
 
     //Structs assignment:
     //set user's info into the struct
-    function setUserDetails(address userAddress, string memory _name, uint256 _age) public {
-        contractOwnerStructs[userAddress].ownerName = _name;
-        contractOwnerStructs[userAddress].ownerAge = _age;
+    function setUserDetails(address userAddress, bytes32 _name, uint256 _age) public {
+        userStructs[userAddress].userName = _name;
+        userStructs[userAddress].userAge = _age;
     }
 
     //send user's info from the struct
-    function getUserDetails(address userAddress) public view returns (string memory, uint256){
+    function getUserDetails(address _addr) public view returns (UserStruct memory){
         return(
-            contractOwnerStructs[userAddress].ownerName,contractOwnerStructs[userAddress].ownerAge
+            userStructs[_addr]
         );
     }
 
-    //modifiers assignment
+    //Modifiers assignment:
 
-    /// @notice Deposit ether into bank, requires method is "payable"
-    /// @return The balance of the user after the deposit is made
-    function deposit(uint256 amount) public payable {
-        balanceReceived += msg.value;
-        donor = msg.sender;
+    /// @notice set donor's info into a struct
+    function depositFromDonor(address donorAddress, bytes32 _donor, uint256 _amount) public {
+        donorStructs[donorAddress].donorName = _donor;
+        donorStructs[donorAddress].donorAmount += _amount;
+        balances[msg.sender] += _amount;
+    }    
+
+   // Checking if the caller is the owner of the contract.
+    modifier checkOwner() {
+        require(msg.sender == owner, "Operation restricted to the Owner");
+        _;
+    }    
+
+    function withdraw(uint256 _amount) public {
+        balances[msg.sender] -= _amount;
     }
 
+    modifier checkPrevDeposit(address _addr){
+        require(donorStructs[_addr].length  > 0, "Donor needs to have a donation previously");
+        _;
+    }
+
+    function addFund(bytes32 _donor, uint256 _amount) public {
+        donorStructs[_donor] = donorStructs[_donor] + _amount;
+
+    }
 
 
 }
