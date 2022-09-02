@@ -6,17 +6,14 @@ contract UserBalance {
     address public owner;
 
     struct UserStruct {
-        string userName;
+        bytes32 userName;
         uint256 userAge;
     }
 
     mapping(address => UserStruct) private userStructs;
     address[] private userIndex;
 
-    // Constructor is "payable" so it can receive the initial funding of 30, 
-    // required to reward the first 3 clients
-    constructor() public payable{
-        require(msg.value == 30 ether, "30 ether initial funding required");        
+    constructor() {
         owner = msg.sender;
         clientCount = 0;
     }
@@ -41,16 +38,22 @@ contract UserBalance {
 
     //Structs assignment:
     //set user's info into the struct
-    function setUserDetails(address userAddress, string memory _name, uint256 _age) public {
+    function setUserDetails(address userAddress, bytes32 _name, uint256 _age) public {
         userStructs[userAddress].userName = _name;
         userStructs[userAddress].userAge = _age;
     }
 
     //send user's info from the struct
-    function getUserDetails(address userAddress) public view returns (string memory, uint256){
+    function getUserDetails(address userAddress) public view returns (bytes32, uint256){
         return(
             userStructs[userAddress].userName,userStructs[userAddress].userAge
         );
     }
 
+    //send user's info from the struct
+    function getUserDetails2(address _addr) public view returns (UserStruct memory){
+        return(
+            userStructs[_addr]
+        );
+    }
 }
