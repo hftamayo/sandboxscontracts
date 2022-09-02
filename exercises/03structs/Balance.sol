@@ -44,14 +44,7 @@ contract UserBalance {
     }
 
     //send user's info from the struct
-    function getUserDetails(address userAddress) public view returns (bytes32, uint256){
-        return(
-            userStructs[userAddress].userName,userStructs[userAddress].userAge
-        );
-    }
-
-    //send user's info from the struct
-    function getUserDetails2(address _addr) public view returns (UserStruct memory){
+    function getUserDetails(address _addr) public view returns (UserStruct memory){
         return(
             userStructs[_addr]
         );
