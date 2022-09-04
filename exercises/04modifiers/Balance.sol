@@ -1,6 +1,7 @@
 pragma solidity ^0.8.7;
 
 contract UserBalance {
+   uint256 constant FEE = 3;
     mapping (address => uint) private balances;
     address public owner;
 
@@ -72,6 +73,7 @@ contract UserBalance {
 
     modifier checkPrevDeposit(address _addr){
         require(donorStructs[_addr].donorName.length == 0, "Donor needs to have a donation previously");
+        require(donorStructs[_addr].donorAmount == 0, "The balance is zero. Make a deposit first");
         _;
     }
 
