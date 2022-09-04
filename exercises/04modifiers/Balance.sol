@@ -71,14 +71,12 @@ contract UserBalance {
     }
 
     modifier checkPrevDeposit(address _addr){
-        require(donorStructs[_addr].length  > 0, "Donor needs to have a donation previously");
+        require(donorStructs[_addr].donorName.length == 0, "Donor needs to have a donation previously");
         _;
     }
 
-    function addFund(bytes32 _donor, uint256 _amount) public {
-        donorStructs[_donor] = donorStructs[_donor] + _amount;
-
+    function addFund(address _addr, uint256 _amount) public {
+        donorStructs[_addr].donorAmount = donorStructs[_addr].donorAmount + _amount;
     }
-
 
 }
