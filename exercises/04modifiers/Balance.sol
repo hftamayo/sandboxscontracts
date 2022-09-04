@@ -1,9 +1,12 @@
 pragma solidity ^0.8.7;
 
 contract UserBalance {
-   uint256 private constant FEE = 3;
+    uint256 private constant FEE = 3;
     mapping (address => uint) private balances;
     address public owner;
+    
+    //@notice customError
+    error AmountToSmall (uint256 sent, uint256 minRequired);    
 
     struct UserStruct {
         bytes32 userName;
@@ -78,7 +81,13 @@ contract UserBalance {
     }
 
     function addFund(address _addr, uint256 _amount) public {
-        donorStructs[_addr].donorAmount = donorStructs[_addr].donorAmount + _amount;
+        if (_amount < FEE){
+            revert AmountToSmall({
+                sent: _amount,
+                minRequired: FEE
+            });
+        } else {
+            donorStructs[_addr].donorAmount = donorStructs[_addr].donorAmount + _amount;
+        }
     }
-
 }
