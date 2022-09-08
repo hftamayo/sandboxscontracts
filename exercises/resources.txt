@@ -1,0 +1,35 @@
+https://cryptomarketpool.com/payable-modifier-in-solidity-smart-contracts/
+https://www.codementor.io/@rogargon/exercise-simple-solidity-smart-contract-for-ethereum-blockchain-m736khtby
+
+como usar openzepellin:
+https://www.youtube.com/watch?v=PdNxXGGWJRI
+https://www.youtube.com/watch?v=2oVMD9k67Wk&list=PLbbtODcOYIoFdQ37ydykQNO-MNGER6mtd
+https://www.youtube.com/channel/UCJWh7F3AFyQ_x01VKzr9eyA
+
+
+Estructura de un smart contract ETH:
+https://docs.soliditylang.org/en/v0.8.16/structure-of-a-contract.html
+
+
+Documentacion de scaffold ETH:
+https://docs.scaffoldeth.io/scaffold-eth/getting-started/quick-start
+
+
+
+
+Challenge 0:
+faucets para la red goerli:
+https://goerli-faucet.pk910.de/
+https://goerlifaucet.com/
+
+link bien util: https://blog.logrocket.com/top-4-ethereum-testnets-testing-smart-contracts/
+
+link de contrato deployado: hftamayoc0.surge.sh
+
+datos enviados sobre el challenge0:
+https://hftamayoc0.surge.sh
+https://goerli.etherscan.io/address/0x3fe3236f9b0f5c3d4a5b6a4cf1f90b852ccc7396
+
+Faucet para la red Ropsten:
+https://faucet.egorfine.com/
+
