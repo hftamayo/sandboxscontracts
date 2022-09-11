@@ -19,6 +19,8 @@ https://docs.scaffoldeth.io/scaffold-eth/getting-started/quick-start
 
 Challenge 0:
 faucets para la red goerli:
+faucet.paradigm.xyz
+https://www.rinkebyfaucet.com/
 https://goerli-faucet.pk910.de/
 https://goerlifaucet.com/
 
