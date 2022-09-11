@@ -35,3 +35,11 @@ https://goerli.etherscan.io/address/0x3fe3236f9b0f5c3d4a5b6a4cf1f90b852ccc7396
 Faucet para la red Ropsten:
 https://faucet.egorfine.com/
 
+
+datos enviados sobre el challenge1:
+challenge 1:
+yarn account: 0xa9267ccaa89e642ba68367f9ab7169dd953ead96
+
+yarn deploy:
+0x9BCDC5E22A5e84B188B32F33b2154cD4F1B090Fa
+hftamayoc1.surge.sh
