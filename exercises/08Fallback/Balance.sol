@@ -12,8 +12,15 @@ contract UserBalance {
     // Constructor is "payable" so it can receive the initial funding of 30, 
     // required to reward the first 3 clients
     constructor() payable {
+        require(msg.value == 30 ether, "30 ether initial funding required");
         owner = payable(msg.sender);
     }
+
+   // Checking if the amount is greater than cero.
+    modifier checkAmount() {
+        require(msg.value == 0, "The amount must be greater than zero");
+        _;
+    }        
 
     /// @notice Deposit ether into bank, requires method is "payable"
     /// @return The balance of the user after the deposit is made
