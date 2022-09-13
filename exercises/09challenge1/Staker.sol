@@ -16,7 +16,7 @@ contract Staker {
   uint256 public constant threshold = 1 ether;
 
   /// Staking deadline
-  uint256 public deadline = block.timestamp + 72 hours;
+  uint256 public deadline = block.timestamp + 30 seconds;
 
   /// Boolean set if threshold is not reached by the deadline
   bool public openForWithdraw;
@@ -75,7 +75,8 @@ contract Staker {
 
 
   // Add a `withdraw(address payable)` function lets users withdraw their balance
-  function withdraw(address payable _to) public deadlinePassed(true) stakingNotCompleted {
+  function withdraw() public deadlinePassed(true) stakingNotCompleted {
+      address _to = msg.sender;
       // check the amount staked did not reach the threshold by the deadline
       require(openForWithdraw, "Not open for withdraw");
 
