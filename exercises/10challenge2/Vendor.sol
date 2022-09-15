@@ -80,5 +80,6 @@ contract Vendor is Ownable {
 
     // Emit sell event
     emit SellTokens(user, amountOfEth, amount);
-  }  
+  }    
+
 }
