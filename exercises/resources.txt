@@ -15,8 +15,6 @@ Documentacion de scaffold ETH:
 https://docs.scaffoldeth.io/scaffold-eth/getting-started/quick-start
 
 
-
-
 Challenge 0:
 faucets para la red goerli:
 faucet.paradigm.xyz
@@ -36,6 +34,10 @@ Faucet para la red Ropsten:
 https://faucet.egorfine.com/
 
 
+CHALLENGE1:
+repo base para la solucion: 
+https://leogau.dev/2022/02/07/how-i-implemented-speed-run-ethereum-challenge-1-decentralized-staking-app.html
+
 datos enviados sobre el challenge1:
 challenge 1:
 yarn account: 0xa9267ccaa89e642ba68367f9ab7169dd953ead96
@@ -43,3 +45,17 @@ yarn account: 0xa9267ccaa89e642ba68367f9ab7169dd953ead96
 yarn deploy:
 0x9BCDC5E22A5e84B188B32F33b2154cD4F1B090Fa
 hftamayoc1.surge.sh
+
+
+Challenge 2: 
+repo bases para la solucion:
+https://github.com/StErMi/scaffold-eth-challenge-2-token-vendor -> paso 6 de 6 tests
+https://leogau.dev/2022/05/31/how-i-implemented-speed-run-ethereum-challenge-2-token-vendor.html paso 5 de 6 tests
+
+
+yarn generate: 0xcb4e8d9dc9fdcde685203210ad714d47f8a8a225
+
+datos enviados:
+yarn deploy:
+deployed at 0x2CB93e3759e188f83203DeEd05BB22C53F6F7be8 with 637715 gas
+hftamayoc202.surge.sh
