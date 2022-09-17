@@ -3,83 +3,77 @@ pragma solidity 0.8.4;  //Do not change the solidity version as it negativly imp
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./YourToken.sol";
+import "hardhat/console.sol";
 
 contract Vendor is Ownable {
+    // Our Token Contract
+  YourToken yourToken;
 
-  YourToken public yourToken;
-  /// Our token price
-  uint256 public constant tokensPerEth = 100;
-  
+  // token price for ETH
+  uint256 public tokensPerEth = 100;
+
+  // Event that log buy operation
   event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
-  event SellTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+  event SellTokens(address seller, uint256 amountOfTokens, uint256 amountOfETH);
 
   constructor(address tokenAddress) {
     yourToken = YourToken(tokenAddress);
   }
 
-  // ToDo: create a payable buyTokens() function:
+  /**
+  * @notice Allow users to buy tokens for ETH
+  */
+  function buyTokens() public payable returns (uint256 tokenAmount) {
+    require(msg.value > 0, "Send ETH to buy some tokens");
 
-  // ToDo: create a withdraw() function that lets the owner withdraw ETH
+    uint256 amountToBuy = msg.value * tokensPerEth;
 
-  // ToDo: create a sellTokens(uint256 _amount) function:
-
-  /// Allow users to buy tokens
-  function buyTokens() public payable {
-    // Validate the user sent eth
-    uint256 amountOfEth = msg.value;
-    require(amountOfEth > 0, "Send some ETH to buy tokens");
-
-    // Validate the vendor has enough tokens
-    uint256 amountOfTokens = amountOfEth * tokensPerEth;
+    // check if the Vendor Contract has enough amount of tokens for the transaction
     uint256 vendorBalance = yourToken.balanceOf(address(this));
-    require(vendorBalance >= amountOfTokens, "Vendor does not have enough tokens");
+    require(vendorBalance >= amountToBuy, "Vendor contract has not enough tokens in its balance");
 
-    // Send the tokens
-    address buyer = msg.sender;
-    (bool sent) = yourToken.transfer(buyer, amountOfTokens);
-    require(sent, "Failed to transfer token");
+    // Transfer token to the msg.sender
+    (bool sent) = yourToken.transfer(msg.sender, amountToBuy);
+    require(sent, "Failed to transfer token to user");
 
-    // Emit buy event
-    emit BuyTokens(buyer, amountOfEth, amountOfTokens);
+    // emit the event
+    emit BuyTokens(msg.sender, msg.value, amountToBuy);
+
+    return amountToBuy;
   }
 
-  /// Allow the owner to withdraw ETH
+  /**
+  * @notice Allow users to sell tokens for ETH
+  */
+  function sellTokens(uint256 tokenAmountToSell) public {
+    // Check that the requested amount of tokens to sell is more than 0
+    require(tokenAmountToSell > 0, "Specify an amount of token greater than zero");
+
+    // Check that the user's token balance is enough to do the swap
+    uint256 userBalance = yourToken.balanceOf(msg.sender);
+    require(userBalance >= tokenAmountToSell, "Your balance is lower than the amount of tokens you want to sell");
+
+    // Check that the Vendor's balance is enough to do the swap
+    uint256 amountOfETHToTransfer = tokenAmountToSell / tokensPerEth;
+    uint256 ownerETHBalance = address(this).balance;
+    require(ownerETHBalance >= amountOfETHToTransfer, "Vendor has not enough funds to accept the sell request");
+
+    (bool sent) = yourToken.transferFrom(msg.sender, address(this), tokenAmountToSell);
+    require(sent, "Failed to transfer tokens from user to vendor");
+
+
+    (sent,) = msg.sender.call{value: amountOfETHToTransfer}("");
+    require(sent, "Failed to send ETH to the user");
+  }
+
+  /**
+  * @notice Allow the owner of the contract to withdraw ETH
+  */
   function withdraw() public onlyOwner {
-    // Validate the vendor has ETH to withdraw
-    uint256 vendorBalance = address(this).balance;
-    require(vendorBalance > 0, "Vendor does not have any ETH to withdraw");
+    uint256 ownerBalance = address(this).balance;
+    require(ownerBalance > 0, "Owner has not balance to withdraw");
 
-    // Send ETH
-    address owner = msg.sender;
-    (bool sent, ) = owner.call{value: vendorBalance}("");
-    require(sent, "Failed to withdraw");
+    (bool sent,) = msg.sender.call{value: address(this).balance}("");
+    require(sent, "Failed to send user balance back to the owner");
   }
-
-  /// Allow users to sell tokens back to the vendor
-  function sellTokens(uint256 amount) public {
-    // Validate token amount
-    require(amount > 0, "Must sell a token amount greater than 0");
-
-    // Validate the user has the tokens to sell
-    address user = msg.sender;
-    uint256 userBalance = yourToken.balanceOf(user);
-    require(userBalance >= amount, "User does not have enough tokens");
-
-    // Validate the vendor has enough ETH
-    uint256 amountOfEth = amount / tokensPerEth;
-    uint256 vendorEthBalance = address(this).balance;
-    require(vendorEthBalance > amountOfEth, "Vendor does not have enough ETH");
-
-    // Transfer tokens
-    (bool sent) = yourToken.transferFrom(user, address(this), amount);
-    require(sent, "Failed to transfer tokens");
-
-    // Transfer ETH
-    (bool ethSent, ) = user.call{value: amountOfEth }("");
-    require(ethSent, "Failed to send back eth");
-
-    // Emit sell event
-    emit SellTokens(user, amountOfEth, amount);
-  }    
-
 }
