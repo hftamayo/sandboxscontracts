@@ -59,3 +59,9 @@ datos enviados:
 yarn deploy:
 deployed at 0x2CB93e3759e188f83203DeEd05BB22C53F6F7be8 with 637715 gas
 hftamayoc202.surge.sh
+
+
+recursos proporcionados por Kevin Jones para obtener ayuda para proyectos Solidity:
+scp channel: https://t.me/smartcontractprogrammer
+https://t.me/dev_solidity
+https://discord.gg/m9STdsU6
