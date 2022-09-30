@@ -60,6 +60,8 @@ yarn deploy:
 deployed at 0x2CB93e3759e188f83203DeEd05BB22C53F6F7be8 with 637715 gas
 hftamayoc202.surge.sh
 
+Esta parte nunca funciono porque olvide ejecutar un paso que esta en el writeup
+
 
 recursos proporcionados por Kevin Jones para obtener ayuda para proyectos Solidity:
 scp channel: https://t.me/smartcontractprogrammer
