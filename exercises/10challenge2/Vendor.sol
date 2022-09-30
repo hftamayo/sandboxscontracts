@@ -10,7 +10,7 @@ contract Vendor is Ownable {
   YourToken yourToken;
 
   // token price for ETH
-  uint256 public tokensPerEth = 100;
+  uint256 public constant tokensPerEth = 100;
 
   // Event that log buy operation
   event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
