@@ -60,7 +60,28 @@ yarn deploy:
 deployed at 0x2CB93e3759e188f83203DeEd05BB22C53F6F7be8 with 637715 gas
 hftamayoc202.surge.sh
 
-Esta parte nunca funciono porque olvide ejecutar un paso que esta en el writeup
+Esta parte nunca funciono porque olvide ejecutar un paso que esta en el writeup 
+y es la relativa a la modificacion del frontend (01_deploy_vendor.js y App.jsx), para resolverlo:
+
+1. me tome casi 2 semanas en volver a tener ganas de depurar esto
+2. un test me da error si el frontend (yarn start) esta arriba
+3. al ejecutar el yarn deploy me aparecieron 2 token deployados, uno de YourToken.sol y el otro de Vendor.sol
+
+los datos del deploy son:
+
+yarn account: 0x3448e8dfb3c0e8182947e98b7dfe0a2058cb3521
+yarn deploy:
+YourToken.sol: 0xB769002fa2DB4F2a7f9903bA3A7dBfcf8D4F6897
+Vendor.sol: 0xA3784D98A2f9A5908C167eDbe0eeC773ee87b0E7
+hftamayoc206.surge.sh
+
+Datos subidos a la tarea:
+https://hftamayoc206.surge.sh
+https://goerli.etherscan.io/address/0x3448e8dfb3c0e8182947e98b7dfe0a2058cb3521
+
+puesto que son 2 contratos deployados subi mi yarn account, sin embargo, fue rechazado, 
+pense que habia un mecanismo de verificacion, entonces subire el link de Vendor.sol:
+https://goerli.etherscan.io/address/0xA3784D98A2f9A5908C167eDbe0eeC773ee87b0E7
 
 
 recursos proporcionados por Kevin Jones para obtener ayuda para proyectos Solidity:
