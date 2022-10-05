@@ -88,3 +88,13 @@ recursos proporcionados por Kevin Jones para obtener ayuda para proyectos Solidi
 scp channel: https://t.me/smartcontractprogrammer
 https://t.me/dev_solidity
 https://discord.gg/m9STdsU6
+
+Challenge 3:
+repo base: https://github.com/chavda-bhavik/scafold-eth-dice-game
+
+yarn generate: 0x05efc9cf49b9ec4a4fd42d6691c2c130f4257a03
+
+yarn deploy: 
+DiceGame: 0x44E98e4C3C4a7f71E6bF6814f021daCB1d1Cae3A
+RiggedRoll: https://goerli.etherscan.io/address/0xE01bd5F2A95F3A3A602709930e5A9DbAC263c065
+yarn surge: https://hftamayoc301.surge.sh
