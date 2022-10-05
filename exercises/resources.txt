@@ -98,3 +98,10 @@ yarn deploy:
 DiceGame: 0x44E98e4C3C4a7f71E6bF6814f021daCB1d1Cae3A
 RiggedRoll: https://goerli.etherscan.io/address/0xE01bd5F2A95F3A3A602709930e5A9DbAC263c065
 yarn surge: https://hftamayoc301.surge.sh
+
+
+segundo intento:
+yarn generate: 0x052e57a66c4d347150ac9a6176c04d1775aa8e4d
+DiceGame: 0x7da58e21487648906a00B4bd24733fDd6Fc4F772
+RiggedRoll: https://goerli.etherscan.io/address/0x8bCcb858bF6f6555849F9194f6bCD420dDFa01D0
+yarn surge: https://hftamayoc302.surge.sh

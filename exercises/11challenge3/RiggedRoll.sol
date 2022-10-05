@@ -6,6 +6,7 @@ import "./DiceGame.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract RiggedRoll is Ownable {
+
     DiceGame public diceGame;
 
     constructor(address payable diceGameAddress) {
@@ -21,7 +22,8 @@ contract RiggedRoll is Ownable {
 
     //Add riggedRoll() function to predict the randomness in the DiceGame contract and only roll when it's going to be a winner
     function riggedRoll() public payable {
-        require(msg.value >= 0.002 ether, "Failed to send enough value");
+        //require(msg.value >= 0.002 ether, "Failed to send enough value");
+        require(address(this).balance >= .002 ether, "Failed to send enough value");
 
         bytes32 prevHash = blockhash(block.number - 1);
         bytes32 hash = keccak256(
@@ -37,5 +39,5 @@ contract RiggedRoll is Ownable {
     }
 
     //Add receive() function so contract can receive Eth
-    receive() external payable {}
+    receive() external payable {}    
 }
