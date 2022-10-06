@@ -105,3 +105,14 @@ yarn generate: 0x052e57a66c4d347150ac9a6176c04d1775aa8e4d
 DiceGame: 0x7da58e21487648906a00B4bd24733fDd6Fc4F772
 RiggedRoll: https://goerli.etherscan.io/address/0x8bCcb858bF6f6555849F9194f6bCD420dDFa01D0
 yarn surge: https://hftamayoc302.surge.sh
+
+Me daba un error que este codigo acepta riggedRoll cuando la ronda es mayor a 2, aun y cuando hay una validacion este error salta
+
+probaré este codigo:
+
+https://github.com/vanities/speedrun-ethereum/blob/master/challenge-3-dice-game/packages/hardhat/contracts/DiceGame.sol
+
+yarn generate: 0x3a6f09ab0d414b9f9e8f8fbfbecaee365d04573a
+RiggedRoll: https://goerli.etherscan.io/address/0x3Fe7f52BCA828cd1Aa770d26fdf9fF4bF519CFE9
+yarn surge: https://hftamayoc303.surge.sh
+

@@ -30,9 +30,13 @@ contract RiggedRoll is Ownable {
             abi.encodePacked(prevHash, address(diceGame), diceGame.nonce())
         );
         uint256 roll = uint256(hash) % 16;
+        /*
         if (roll > 2) {
             return;
         }
+        */
+        require(roll <= 2, "Not allowed, reverting.");
+
         console.log("THE RIGGED ROLL IS ", roll);
 
         diceGame.rollTheDice{value: 2000000000000000 wei}();
