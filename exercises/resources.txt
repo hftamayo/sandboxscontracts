@@ -119,6 +119,21 @@ yarn surge: https://hftamayoc303.surge.sh
 challenge 4:
 repo de refencia: https://github.com/ijonas/ethspeedrun-dex/blob/challenge-3-single-pool-dex/packages/hardhat/contracts/DEX.sol
 
+
+siguiendo el tutorial original fueron un poco mas de una semana de no tener resultados, en el grupo de telegram consegui este repo:
+https://github.com/DiyaaDaoud/scaffold-eh-challenge4-building-the-DEX
+
+comparando parece que si tenia que modificar el codigo y el script de testing es totalmente distinto al original.
+
+Probando con este repo en el test me da 4 aprobados y 2 fallidos, pregunté sobre los errores en el canal de telegram pero aun no me contestan
+
+
+
+
+
+
+
+
 yarn generate: 0x4811462092bbe93808eb6e8d9ee9a4ab2c8d02b8
 deploy de balloons:
 deploy de dex:
