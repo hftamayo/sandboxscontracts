@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
 contract UserBalance {
@@ -6,11 +7,11 @@ contract UserBalance {
     address public owner;
 
     struct UserStruct {
-        bytes32 userName;
+        string userName;
         uint256 userAge;
     }
 
-    mapping(address => UserStruct) private userStructs;
+    UserStruct public userStruct;
     address[] private userIndex;
 
     constructor() {
@@ -38,15 +39,14 @@ contract UserBalance {
 
     //Structs assignment:
     //set user's info into the struct
-    function setUserDetails(address userAddress, bytes32 _name, uint256 _age) public {
-        userStructs[userAddress].userName = _name;
-        userStructs[userAddress].userAge = _age;
+    function setUserDetails(string calldata _name, uint256 _age) public {
+        UserStruct storage new_userStruct = userStruct;
+        new_userStruct.userName = _name;
+        new_userStruct.userAge = _age;
     }
 
     //send user's info from the struct
-    function getUserDetails(address _addr) public view returns (UserStruct memory){
-        return(
-            userStructs[_addr]
-        );
+    function getUserDetails() public view returns (UserStruct memory){
+        return userStruct;
     }
 }
